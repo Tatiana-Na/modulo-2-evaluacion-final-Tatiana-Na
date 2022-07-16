@@ -8,20 +8,26 @@ const listSeries =  document.querySelector('.js-list-series');
 
 
 
-
+///renderezar/pintar en Html
 let data = []; ///мы создаем константу в которой мы храним то что нам присылает сервер
 
 function renderSeries() {
     console.log(data);
     let html = "";
     for (const oneSerie of data) {
-     html += `<li class="cardSerie">`;
+     html += `<li class="cardSerie js_cardSerieResault" id="${oneSerie.mal_id}">`;
      html += `<img src="${oneSerie.images.jpg.image_url}" alt="">`;  
      html += `<h3>${oneSerie.title}</h3>`; 
      html += `</li>`; 
     }
     listSeries.innerHTML = html;
+    clickOnSerie();
 }
+
+
+
+
+
 
 function ApiData() {
 fetch('https://api.jikan.moe/v4/anime?')
@@ -29,71 +35,62 @@ fetch('https://api.jikan.moe/v4/anime?')
 .then((result) => {
     data = result.data;
     renderSeries();
+  
 }
 )};
 
 ApiData();
 
+let ListFavorites = [];
 
 
-console.log('data fuera del then' + data);
+function handleClick(event) {
+    console.log(event.currentTarget.id);
+    const idFavorite = event.currentTarget.id;
 
-///renderezar/pintar en Html
-
-
-//Objetos con cada gatito
-const tarjeta_serie = {
-    image: " ",
-    name: " ",
-};
-
-// Obtener listado de series desde el servidor
-/*
-let kittenDataList = [];
-
- fetch('https://api.jikan.moe/v4/anime?', {
-    image: 'kittenDataList.url',
-    method: 'GET',
-    headers: {'Content-Type': 'application/json'},
-  })
-  .then((response) => response.json())
-  .then ((json) => {
-    console.log(data);
- kittenDataList = data.results
- renderKittenList(kittenDataList) 
-  })
-
-  .catch((error) => console.log(`Ha sucedido un error: ${error}`)) 
-*/
-
-
-
-
-
-
-
-
-
-/*
-let data = [ ]; 
-const changeLatter = document.querySelector('.js_article');
-
-function renderInfo() {
-    let html = '';
-for ( const infoData of data) {
-   html = `<li>${infoData.name}</li>`; 
-}
-changeLatter.innetHTML = html;
+ const serieFavoriteClicked = data.find((cardSerieResault) => cardSerieResault.id === idFavorite);
+ console.log(serieFavoriteClicked);
 }
 
-fetch('https://api.jikan.moe/v4/anime?')
-.then((response) => response.json())
-.then((json) => {
-    console.log(json);
-    data = json.Object;
- 
-    renderInfo();
-})
-*/
+function clickOnSerie() {
+    const searchListResault = document.querySelectorAll('.js_cardSerieResault');
+    for (const li of searchListResault) {
+        li.addEventListener('click', handleClick);
+        
+    }
+}
+
+
+inputForm.oninput = function() {
+    let value = this.value.trim().toLowerCase();
+    
+    let list = document.querySelectorAll('.js-list-series li');
+  if (value != '') {
+    list.forEach(elem => {
+        if(elem.innerText.search(value) == -1) {
+            elem.classList.add('hide')
+        }
+    });
+  } else {
+    list.forEach(elem => {
+      elem.classList.remove('hide');  
+    });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
