@@ -6,12 +6,12 @@ const btnReser = document.querySelector('.js-button-reset');
 const inputForm = document.querySelector('.js_input');
 const listSeries =  document.querySelector('.js-list-series');
 
+
+
+
 let data = []; ///мы создаем константу в которой мы храним то что нам присылает сервер
 
-fetch('https://api.jikan.moe/v4/anime?')
-.then((response) => response.json())
-.then((result) => {
-    data = result.data
+function renderSeries() {
     console.log(data);
     let html = "";
     for (const oneSerie of data) {
@@ -22,7 +22,17 @@ fetch('https://api.jikan.moe/v4/anime?')
     }
     listSeries.innerHTML = html;
 }
-);
+
+function ApiData() {
+fetch('https://api.jikan.moe/v4/anime?')
+.then((response) => response.json())
+.then((result) => {
+    data = result.data;
+    renderSeries();
+}
+)};
+
+ApiData();
 
 
 
