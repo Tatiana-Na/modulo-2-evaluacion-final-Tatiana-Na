@@ -17,4 +17,40 @@
   background-color: #CCC;
   color: #000; }
 
+.body {
+  background-color: black; }
+
+.search {
+  margin-left: 20px; }
+
+.input {
+  background-color: none;
+  border-radius: 5px;
+  border-color: #1fb6b6;
+  border: 2px;
+  font-style: italic;
+  padding: 10px;
+  margin: 10px; }
+
+.button {
+  color: white;
+  background-color: #1fb6b6;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  margin: 10px; }
+
+.cardSerie {
+  height: 100%;
+  margin-left: 25px;
+  color: white;
+  list-style-type: none;
+  font-size: 10px;
+  padding-bottom: 20px;
+  border: solid 2px;
+  border-radius: 5px;
+  border-color: #1fb6b6;
+  margin-bottom: 10px;
+  padding: 10px; }
+
 /*# sourceMappingURL=main.css.map */

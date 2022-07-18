@@ -7,3 +7,45 @@
 @import 'layout/footer';
 @import 'pages/index';
 
+.body {
+background-color: black;
+}
+
+.search {
+    margin-left: 20px;
+}
+.input {
+    background-color: none;
+    border-radius: 5px;
+    border-color:  rgb(31, 182, 182);
+    border: 2px;
+    font-style: italic;
+    padding: 10px;
+    margin: 10px;  
+}
+.button {
+color: white;
+background-color: rgb(31, 182, 182);
+border-radius: 5px;
+border: none;
+padding: 10px;
+margin: 10px;
+}
+
+
+.cardSerie {
+height: 100%;
+        margin-left: 25px; 
+        color: white;
+        list-style-type: none;
+        font-size: 10px;
+        padding-bottom: 20px;
+        border: solid 2px;
+        border-radius: 5px;
+        border-color: rgb(31, 182, 182);   
+        margin-bottom: 10px;
+        padding: 10px;
+
+    }
+
+   

@@ -14,9 +14,19 @@ let data = []; ///мы создаем константу в которой мы 
 
 function renderSeries() {
     console.log(data);
-    let html = "";
+    let html = '';
+    let classFavorite = '';
     for (const oneSerie of data) {
-     html += `<li class="cardSerie js_cardSerieResault" id="${oneSerie.mal_id}">`;
+ const favIndex = ListFavorites.findIndex((favorite) => oneSerie.mal_id === favorite.mal_id  
+ );
+
+if(favIndex !== -1){
+  classFavorite = 'cardSerie_fav';
+}else{
+  classFavorite = '';
+}
+
+     html += `<li class="cardSerie js_cardSerieResault ${classFavorite}" id="${oneSerie.mal_id}">`;
      html += `<img src="${oneSerie.images.jpg.image_url}" alt="">`;  
      html += `<h3>${oneSerie.title}</h3>`; 
      html += `</li>`; 
@@ -37,6 +47,8 @@ btnSearch.addEventListener('click', (event) => {
     renderSeries(); 
 });
 }); 
+
+
 
 /*
 function ApiData() {
@@ -61,14 +73,24 @@ ApiData();
 let ListFavorites = [];
 
 
- function handleClick(event) {
-    console.log(event.currentTarget.id);
-    const idFavorite = parseInt(event.currentTarget.id);
+function handleClick(event) {
+console.log(event.currentTarget.id);
+const idFavorite = parseInt(event.currentTarget.id);
 
 const serieFavoriteClicked = data.find((serie) => serie.mal_id === idFavorite);
- console.log(serieFavoriteClicked);
 
+const serieFavotiteSelected = ListFavorites.findIndex((favorite) => favorite.mal_id === idFavorite);
+
+if(serieFavotiteSelected === -1) {
+  ListFavorites.push(serieFavoriteClicked);
+} else {
+  ListFavorites.splice(serieFavotiteSelected, 1);
+} 
+  console.log(ListFavorites);
+  renderSeries();
 }
+
+
 
 
 function clickOnSerie() {
@@ -77,6 +99,19 @@ function clickOnSerie() {
         li.addEventListener('click', handleClick);
     }
 }
+
+
+//// Button Reset
+
+
+btnReser.addEventListener('click', handleClickReset);
+
+function handleClickReset() {
+  renderSeries();
+};
+
+
+
 
 /// Buscador///////
 /*inputForm.oninput = function() {
