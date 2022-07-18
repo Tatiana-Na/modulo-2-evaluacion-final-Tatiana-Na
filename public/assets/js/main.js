@@ -1,6 +1,7 @@
 'use strict';
 
 /* Elementos que usamos en el HTML */
+
 const btnSearch = document.querySelector('.js-button-search');
 const btnReser = document.querySelector('.js-button-reset');
 const inputForm = document.querySelector('.js_input');
@@ -8,7 +9,7 @@ const listSeries =  document.querySelector('.js-list-series');
 
 
 
-///renderezar/pintar en Html
+
 let data = []; ///мы создаем константу в которой мы храним то что нам присылает сервер
 
 function renderSeries() {
@@ -24,50 +25,67 @@ function renderSeries() {
     clickOnSerie();
 }
 
+///Eventos
+btnSearch.addEventListener('click', (event) => {
+  event.preventDefault();
+  const userTextValue = inputForm.value;
+  fetch(`https://api.jikan.moe/v4/anime?q=${userTextValue}`)
+  .then((response) => response.json())
+  .then((result) => {
 
+    data = result.data;
+    renderSeries(); 
+});
+}); 
 
-
-
-
+/*
 function ApiData() {
 fetch('https://api.jikan.moe/v4/anime?')
 .then((response) => response.json())
 .then((result) => {
-    data = result.data;
-    renderSeries();
-  
-}
-)};
 
+    data = result.data;
+    renderSeries(); 
+}
+)
+ .catch((error) => {
+      console.log(`Se ha producido un error ${error}`);
+    });
+    };
 ApiData();
+*/
+
+
+/// Favorits///////
 
 let ListFavorites = [];
 
 
-function handleClick(event) {
+ function handleClick(event) {
     console.log(event.currentTarget.id);
-    const idFavorite = event.currentTarget.id;
+    const idFavorite = parseInt(event.currentTarget.id);
 
- const serieFavoriteClicked = data.find((cardSerieResault) => cardSerieResault.id === idFavorite);
+const serieFavoriteClicked = data.find((serie) => serie.mal_id === idFavorite);
  console.log(serieFavoriteClicked);
+
 }
+
 
 function clickOnSerie() {
     const searchListResault = document.querySelectorAll('.js_cardSerieResault');
     for (const li of searchListResault) {
         li.addEventListener('click', handleClick);
-        
     }
 }
 
-
-inputForm.oninput = function() {
-    let value = this.value.trim().toLowerCase();
+/// Buscador///////
+/*inputForm.oninput = function() {
+    let value = this.value.trim();
     
     let list = document.querySelectorAll('.js-list-series li');
   if (value != '') {
     list.forEach(elem => {
-        if(elem.innerText.search(value) == -1) {
+        if(elem.innerText.(value.toLowerCase()) == -1) {
             elem.classList.add('hide')
         }
     });
@@ -77,6 +95,7 @@ inputForm.oninput = function() {
     });
   }
 }
+*/
 
 
 
