@@ -9,15 +9,9 @@ const listSeries =  document.querySelector('.js-list-series');
 const favList = document.querySelector('.js-favorite');
 
 
-/*
-function borderOnClick(event) {
-    event.currentTarget.classList.add('cardSerie-red-border');
-    console.log(event.currentTarget.classList);
-}
-*/
 
 ///Render
-let data = []; ///мы создаем константу в которой мы храним то что нам присылает сервер
+let data = []; 
 
 function renderSeries() {
     console.log(data);
@@ -45,19 +39,13 @@ if(serieFavorite !== -1){
 function renderFavorites() {
   let html =  '';
   for (let index = 0; index < ListFavorites.length; index++) {
-      html += "<li class = cardSerie>";
+      html += `<li class ="li-favorite">`;
       html += `<img src="${ListFavorites[index].images.jpg.image_url}" alt="">`;  
       html += `<h3>${ListFavorites[index].title}</h3>`;
-      html += "</li>";
+      html += `</li>`;
     }
     favList.innerHTML = html;
-
-
 }
-
-
-
-
 
 
 ///Eventos
@@ -67,20 +55,16 @@ btnSearch.addEventListener('click', (event) => {
   fetch(`https://api.jikan.moe/v4/anime?q=${userTextValue}`)
   .then((response) => response.json())
   .then((result) => {
-
     data = result.data;
     renderSeries(); 
 })
 }); 
 
 
-
-
 /*function ApiData() {
 fetch('https://api.jikan.moe/v4/anime?')
 .then((response) => response.json())
 .then((result) => {
-
     data = result.data;
     renderSeries(); 
 }
@@ -93,8 +77,6 @@ ApiData();
 */
 
 
-
-
 /// Favorits///////
 let ListFavorites = [];
 
@@ -103,8 +85,11 @@ function handleClick(event) {
 console.log(event.currentTarget.id);
 
 const idFavorite = parseInt(event.currentTarget.id);
+
 const serieFavoriteClicked = data.find((serie) => serie.mal_id === idFavorite);
+
 const serieFavotiteSelected = ListFavorites.findIndex((favorite) => favorite.mal_id === idFavorite);
+
 if(serieFavotiteSelected === -1) {
   ListFavorites.push(serieFavoriteClicked);
 } else {
@@ -121,7 +106,6 @@ function addToFavourites(name, showHTML) {
   if (newFavourite.length !== 0) {
       favouriteItems.push(newFavourite[0]);
   }
-
 }
 
 
@@ -149,22 +133,6 @@ function setLocalStorage() {
 }
 
 
-
-
-/*
-
-function pageRestart() {
-  const favLocalStorage = JSON.parse(localStorage.getItem('ListFavorites'));
-
-  if (favLocalStorage) {
-  } else {
-console.log(pageRestart);
-  }
-}
-
-pageRestart();
-
-*/
 
 
 
