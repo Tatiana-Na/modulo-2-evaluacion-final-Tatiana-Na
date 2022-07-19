@@ -8,8 +8,14 @@ const inputForm = document.querySelector('.js_input');
 const listSeries =  document.querySelector('.js-list-series');
 
 
+function borderOnClick(event) {
+    event.currentTarget.classList.add('cardSerie-red-border');
+    console.log(event.currentTarget.classList);
+}
 
 
+
+///Render
 let data = []; ///мы создаем константу в которой мы храним то что нам присылает сервер
 
 function renderSeries() {
@@ -17,15 +23,14 @@ function renderSeries() {
     let html = '';
     let classFavorite = '';
     for (const oneSerie of data) {
- const favIndex = ListFavorites.findIndex((favorite) => oneSerie.mal_id === favorite.mal_id  
+ const serieFavorite = ListFavorites.findIndex((favorite) => oneSerie.mal_id === favorite.mal_id  
  );
 
-if(favIndex !== -1){
-  classFavorite = 'cardSerie_fav';
+if(serieFavorite !== -1){
+  classFavorite = 'cardSerie--myFavorite';
 }else{
   classFavorite = '';
 }
-
      html += `<li class="cardSerie js_cardSerieResault ${classFavorite}" id="${oneSerie.mal_id}">`;
      html += `<img src="${oneSerie.images.jpg.image_url}" alt="">`;  
      html += `<h3>${oneSerie.title}</h3>`; 
@@ -34,6 +39,7 @@ if(favIndex !== -1){
     listSeries.innerHTML = html;
     clickOnSerie();
 }
+
 
 ///Eventos
 btnSearch.addEventListener('click', (event) => {
@@ -45,13 +51,13 @@ btnSearch.addEventListener('click', (event) => {
 
     data = result.data;
     renderSeries(); 
-});
+})
 }); 
 
 
 
-/*
-function ApiData() {
+
+/*function ApiData() {
 fetch('https://api.jikan.moe/v4/anime?')
 .then((response) => response.json())
 .then((result) => {
@@ -68,19 +74,17 @@ ApiData();
 */
 
 
-/// Favorits///////
 
+/// Favorits///////
 let ListFavorites = [];
 
 
 function handleClick(event) {
 console.log(event.currentTarget.id);
+
 const idFavorite = parseInt(event.currentTarget.id);
-
 const serieFavoriteClicked = data.find((serie) => serie.mal_id === idFavorite);
-
 const serieFavotiteSelected = ListFavorites.findIndex((favorite) => favorite.mal_id === idFavorite);
-
 if(serieFavotiteSelected === -1) {
   ListFavorites.push(serieFavoriteClicked);
 } else {
@@ -88,8 +92,8 @@ if(serieFavotiteSelected === -1) {
 } 
   console.log(ListFavorites);
   renderSeries();
+  
 }
-
 
 
 
@@ -102,8 +106,6 @@ function clickOnSerie() {
 
 
 //// Button Reset
-
-
 btnReser.addEventListener('click', handleClickReset);
 
 function handleClickReset() {
@@ -113,25 +115,17 @@ function handleClickReset() {
 
 
 
-/// Buscador///////
-/*inputForm.oninput = function() {
-    let value = this.value.trim();
-    
-    let list = document.querySelectorAll('.js-list-series li');
-  if (value != '') {
-    list.forEach(elem => {
-        if(elem.innerText.(value.toLowerCase()) == -1) {
-            elem.classList.add('hide')
-        }
-    });
+/*function pageRestart() {
+  const localStorage = JSON.parse(localStorage.getItem('data'));
+
+  if (localStorage) {
   } else {
-    list.forEach(elem => {
-      elem.classList.remove('hide');  
-    });
+    ApiData();
   }
 }
-*/
 
+pageRestart();
+*/
 
 
 
