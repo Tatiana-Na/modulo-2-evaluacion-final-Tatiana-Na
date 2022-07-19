@@ -6,13 +6,14 @@ const btnSearch = document.querySelector('.js-button-search');
 const btnReser = document.querySelector('.js-button-reset');
 const inputForm = document.querySelector('.js_input');
 const listSeries =  document.querySelector('.js-list-series');
+const favList = document.querySelector('.js-favorite');
+
 
 
 function borderOnClick(event) {
     event.currentTarget.classList.add('cardSerie-red-border');
     console.log(event.currentTarget.classList);
 }
-
 
 
 ///Render
@@ -31,7 +32,7 @@ if(serieFavorite !== -1){
 }else{
   classFavorite = '';
 }
-     html += `<li class="cardSerie js_cardSerieResault ${classFavorite}" id="${oneSerie.mal_id}">`;
+ html += `<li class="cardSerie js_cardSerieResault ${classFavorite}" id="${oneSerie.mal_id}">`;
      html += `<img src="${oneSerie.images.jpg.image_url}" alt="">`;  
      html += `<h3>${oneSerie.title}</h3>`; 
      html += `</li>`; 
@@ -39,6 +40,23 @@ if(serieFavorite !== -1){
     listSeries.innerHTML = html;
     clickOnSerie();
 }
+
+
+function renderFavorites() {
+  let html =  '';
+  for (let index = 0; index < ListFavorites.length; index++) {
+      html += "<li class = cardSerie>";
+      html += ListFavorites[index];
+      html += "</li>";
+    }
+    favList.innerHTML = html;
+    setLocalStorage(html);
+
+}
+
+
+
+
 
 
 ///Eventos
@@ -75,6 +93,7 @@ ApiData();
 
 
 
+
 /// Favorits///////
 let ListFavorites = [];
 
@@ -91,10 +110,17 @@ if(serieFavotiteSelected === -1) {
   ListFavorites.splice(serieFavotiteSelected, 1);
 } 
   console.log(ListFavorites);
-  renderSeries();
-  
+  renderSeries(); 
+  renderFavorites()
 }
 
+function addToFavourites(name, showHTML) { 
+  const newFavourite = searchItems.filter(item => item.show.name == name);
+  if (newFavourite.length !== 0) {
+      favouriteItems.push(newFavourite[0]);
+  }
+
+}
 
 
 function clickOnSerie() {
@@ -103,6 +129,22 @@ function clickOnSerie() {
         li.addEventListener('click', handleClick);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //// Button Reset
@@ -114,19 +156,28 @@ function handleClickReset() {
 
 
 
+////Local Storage
+function setLocalStorage() {
+  localStorage.setItem('ListFavorites', JSON.stringify(ListFavorites));
+}
 
-/*function pageRestart() {
-  const localStorage = JSON.parse(localStorage.getItem('data'));
 
-  if (localStorage) {
+
+
+/*
+
+function pageRestart() {
+  const favLocalStorage = JSON.parse(localStorage.getItem('ListFavorites'));
+
+  if (favLocalStorage) {
   } else {
-    ApiData();
+console.log(pageRestart);
   }
 }
 
 pageRestart();
-*/
 
+*/
 
 
 
