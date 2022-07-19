@@ -9,12 +9,12 @@ const listSeries =  document.querySelector('.js-list-series');
 const favList = document.querySelector('.js-favorite');
 
 
-
+/*
 function borderOnClick(event) {
     event.currentTarget.classList.add('cardSerie-red-border');
     console.log(event.currentTarget.classList);
 }
-
+*/
 
 ///Render
 let data = []; ///мы создаем константу в которой мы храним то что нам присылает сервер
@@ -46,11 +46,12 @@ function renderFavorites() {
   let html =  '';
   for (let index = 0; index < ListFavorites.length; index++) {
       html += "<li class = cardSerie>";
-      html += ListFavorites[index];
+      html += `<img src="${ListFavorites[index].images.jpg.image_url}" alt="">`;  
+      html += `<h3>${ListFavorites[index].title}</h3>`;
       html += "</li>";
     }
     favList.innerHTML = html;
-    setLocalStorage(html);
+
 
 }
 
@@ -112,6 +113,7 @@ if(serieFavotiteSelected === -1) {
   console.log(ListFavorites);
   renderSeries(); 
   renderFavorites()
+  setLocalStorage();
 }
 
 function addToFavourites(name, showHTML) { 
@@ -131,27 +133,12 @@ function clickOnSerie() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //// Button Reset
 btnReser.addEventListener('click', handleClickReset);
 
 function handleClickReset() {
   renderSeries();
+  setLocalStorage();
 };
 
 
