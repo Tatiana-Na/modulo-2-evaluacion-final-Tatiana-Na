@@ -29,6 +29,12 @@ if(serieFavorite !== -1){
  html += `<li class="cardSerie js_cardSerieResault ${classFavorite}" id="${oneSerie.mal_id}">`;
      html += `<img src="${oneSerie.images.jpg.image_url}" alt="">`;  
      html += `<h3>${oneSerie.title}</h3>`; 
+     html += `<p>${oneSerie.score}</p>`;
+  
+if(oneSerie.score >= 7) {
+  html += `<p>recomendado</p>`
+}
+    
      html += `</li>`; 
     }
     listSeries.innerHTML = html;
@@ -133,8 +139,16 @@ function setLocalStorage() {
 }
 
 
+const log = document.querySelector('.js-log');
 
 
+function handleClickLog(ev) {
+  ev.preventDefault();
+  console.log(ListFavorites.length);
+}
+
+
+log.addEventListener('click', handleClickLog);
 
 
 
